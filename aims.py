@@ -1,5 +1,6 @@
 import requests
 import time
+from mail_util import send_mail
 
 cookie={"JSESSIONID":input("Enter Cookie: ")}
 TIME_QUANT=600
@@ -39,10 +40,13 @@ def monitor(lastreq=getUngraded(req())):
         if len(lastreq)!=len(latestreq):
             for cid,courseName in lastreq:
                 if (cid,courseName) not in latestreq:
-                    print("{}:{} updated Grade:{}".format(cid,courseName,getGrade(req(),cid)))
+                    grade=getGrade(req(),cid)
+                    # send_mail(courseName,grade,getCG(req()))
+                    print("{}:{} updated Grade:{}".format(cid,courseName,grade))
                     time.sleep(TIME_QUANT)
                     monitor(latestreq)    
         else:
+            print("No Updates")
             time.sleep(TIME_QUANT)
             monitor(latestreq)
 
