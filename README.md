@@ -13,7 +13,8 @@ go to dev tools (```ctrl+shift+i```) and copy the valu of JSESSIONID from cookie
 
 ## Running the script
 - run the python script
-```python aims.py```
+  - for linux ```python3 aims.py```
+  - for windows ```python3 aims.py```
 - enter the copied cookie
 - Your Current cgpa will be displayed
 - Let the script run in background whenever the result gets updated your grades will be displayed
@@ -24,3 +25,6 @@ To recieve notifications via mail do the following
 - Go to your gmail accounts security settings and turn on mails from less secure apps
 ![Security Settings](/static/gs.png)
 - uncomment line 44 in aims.py
+- run the python script
+  - for linux ```python3 aims.py```
+  - for windows ```python3 aims.py```
