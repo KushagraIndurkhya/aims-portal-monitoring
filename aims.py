@@ -2,7 +2,15 @@ import requests
 import time
 from mail_util import send_mail
 
-cookie={"JSESSIONID":input("Enter Cookie: ")}
+try:
+   import browser_cookie3
+   cj = browser_cookie3.chrome(domain_name="aims.iiitr.ac.in")
+   cookie={"JSESSIONID":cj._cookies["aims.iiitr.ac.in"]["/iiitraichur"]["JSESSIONID"].value}
+   print("Cookie Extracted")
+except:
+    cookie={"JSESSIONID":input("Enter Cookie: ")}
+
+
 TIME_QUANT=600
 URL="https://aims.iiitr.ac.in/iiitraichur/courseReg/loadMyCoursesHistroy?studentId=17&courseCd=&courseName=&orderBy=1&degreeIds=&acadPeriodIds=&regTypeIds=&gradeIds=&resultIds=&isGradeIds="
 
@@ -10,11 +18,11 @@ def req():
     return requests.get(URL, cookies=cookie).json()
 
 def getCG(resp):
-    gradeDescriptor = {"A+": 10, "A": 10, "A-": 9, "B": 8, "B-": 7, "C": 6, "C-": 5, "D": 4, "S": 0}
+    gradeDescriptor = {"A+": 10, "A": 10, "A-": 9, "B": 8, "B-": 7, "C": 6, "C-": 5, "D": 4, "S": 0,"I":0}
     total_credits=0
     my_credits=0
     for course in resp:
-        if course['gradeDesc'] != 'S' and course['gradeDesc'] != '':
+        if course['gradeDesc'] not in ['S','I'] and course['gradeDesc'] != '':
             my_credits+=gradeDescriptor[(course['gradeDesc'])]*float(course['credits'])
             total_credits+=float(course["credits"])
     return (my_credits/total_credits)
@@ -49,8 +57,7 @@ def monitor(lastreq=getUngraded(req())):
             print("No Updates")
             time.sleep(TIME_QUANT)
             monitor(latestreq)
-
-print(getCG(req()))
+print("Current CG:",getCG(req()))
 monitor()
 
     
