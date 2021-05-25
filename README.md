@@ -8,14 +8,15 @@ A Monitoring tool for IIITR Students which can be used to calculate current cgpa
 
 ## Obtaining cookie
 Login to https://aims.iiitr.ac.in/
-go to dev tools (```ctrl+shift+i```) and copy the valu of JSESSIONID from cookie
+
+go to dev tools (```ctrl+shift+i```) and copy the value of JSESSIONID from cookie
 ![Dev Tools](/static/cookie.png)
 
 ## Running the script
 - run the python script
   - for linux ```python3 aims.py```
   - for windows ```python aims.py```
-- enter the copied cookie
+- enter the copied cookie if asked otherwise it will be extracted from the supported browsers
 - Your Current cgpa will be displayed
 - Let the script run in background whenever the result gets updated your grades will be displayed
 
